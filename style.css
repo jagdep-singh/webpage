@@ -83,7 +83,7 @@ h2{
         100% { background-position: 0 0; }
     }
 #text{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Metropolis', sans-serif;
     color: whitesmoke;
     font-size: large;
 }
