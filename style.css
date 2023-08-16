@@ -83,7 +83,7 @@ h2{
         100% { background-position: 0 0; }
     }
 #text{
-    font-family: 'Metropolis', sans-serif;
+    font-family: 'Metropolis';
     color: whitesmoke;
     font-size: large;
 }
