@@ -4,7 +4,10 @@
   src: url('metropolis/Metropolis-Thin.otf') format('opentype'),
       url('metropolis/Metropolis-LightItalic.otf') format('opentype');
 }
-
+::selection {
+  background-color: rgb(53, 66, 89);
+  color: rgb(194, 222, 209);
+}
 button{
     cursor: pointer;
 }
