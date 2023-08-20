@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>goobu loopu</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="main.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="lightmode.css">
+  <link rel="stylesheet" href="darkmode.css">
+  <link rel="stylesheet" href="dark-mode-toggle.css">
+  <script src="main.js"></script>
+  <title>Jagdeep Singh</title>
 </head>
 <body>
-    <h1 id="header">Hello👋</h1>
-    <h2>Jagdeep here</h2>
-    <p class="message">I am working on it😇😇</p>
-    <button class="main-button" type="button">Try this🤭</button> 
-    <p id="text"> </p>
-    <div class="button-container">
-        <button class="clear-button" type="button">Clear</button>
-    </div>
     
+    <div class="switch-container">
+        <input type="checkbox" id="modeSwitch" class="checkbox">
+        <label for="modeSwitch" class="switch"></label>
+    </div>
+    <script>
+      const modeSwitch = document.getElementById("modeSwitch");
+    
+      modeSwitch.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode");
+      });
+    </script>
+  <div class="container">
+    <h1 id="header">Hello👋</h1>
+        <h2>Jagdeep here</h2>
+        <p class="message">I am working on it😇😇</p>
+    <mainbutton class="mainbutton">
+        <button class="main-button" type="button">🤭</button> 
+    </mainbutton>
+        <p id="text"> </p>
+        <div class="button-container">
+        <button class="clear-button" type="button">Clear</button>
+</div>
+</div>
 </body>
 </html>
