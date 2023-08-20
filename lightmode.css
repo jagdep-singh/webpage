@@ -132,29 +132,80 @@ button{
   }      
   
 
-@media (max-width: 600px) {
+  @media (max-width: 480px) {
+    #header {
+        font-size: 40px;
+    }
+
+    .main-button {
+        width: 120px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .clear-button {
+        margin: 10px auto;
+        padding: 6px 16px;
+    }
+
+    #text {
+        font-size: small;
+    }
+    .main-button,
+    .clear-button {
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 481px) and (max-width: 1024px) {
     #header {
         font-size: 60px;
     }
-    
+
     .main-button {
         width: 150px;
         height: 40px;
         font-size: 14px;
     }
-    
+
     .button-container {
-        position: static;
-        text-align: center;
-        margin-top: 20px;
+        flex-direction: row;
+        margin-top: 30px;
     }
-    
+
     .clear-button {
-        margin: 10px auto;
-        padding: 8px 20px;
+        margin: 0 10px;
+        padding: 10px 20px;
     }
-    
-    #text {
-        font-size: medium;
+    .main-button,
+    .clear-button {
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1025px) {
+    #header {
+        font-size: 100px;
+    }
+
+    .main-button {
+        width: auto;
+        height: auto;
+        font-size: 2.5em;
+    }
+
+    .button-container {
+        margin-top: 50px;
+    }
+
+    .clear-button {
+        margin-top: 50px;
+        padding: 10px;
+    }
+    .main-button,
+    .clear-button {
+        transition: all 0.3s ease-in-out;
     }
 }
