@@ -11,7 +11,7 @@
 .switch {
 	width: 60px;
 	height: 30px;
-	background: linear-gradient(to right, #9bf8f4, #6f7bf7);
+	background: linear-gradient(to right,rgba(229,252,205,1), rgba(80,94,79,1) );
 	border-radius: 25px;
 	display: inline-block;
 	position: relative;
