@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Your CSS styles go here */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
+
+        .game-container {
+            display: flex;
+        }
+
+        .game-board {
+            position: relative;
+            width: 1400px; /* Adjust the width and height as needed */
+            height: 900px;
+            border: 1px solid #000;
+            background-color: #121213; /* Dark background color */
+            overflow: hidden; /* Hide overflow to keep the game board size */
+        }
+
+        .snake-segment {
+            position: absolute;
+            width: 30px; /* Adjust the cell size as needed */
+            height: 30px;
+            background-color: green;
+            border: 2px solid #333; /* Cell border */
+        }
+
+        .food {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgb(255, 115, 0);
+            border: 2px solid #333; /* Cell border */
+        }
+
+        #start-button,
+        #restart-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: #0074d9;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive; /* 16-bit retro font */
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        #start-button:hover,
+        #restart-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: translate(-50%, -50%) scale(1.05); /* Slightly scale up on hover */
+        }
+
+        #restart-button {
+            display: none;
+        }
+
+        #score {
+            font-family: 'Press Start 2P', cursive; /* 16-bit retro font */
+            color: #fff;
+            font-size: 24px;
+            margin-left: 20px; /* Adjust margin as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-board" id="game-board">
+            <button id="start-button">Start Game</button>
+            <button id="restart-button" onclick="restartGame()">Restart Game</button>
+        </div>
+        <div id="score">Score: 0</div>
+    </div>
+    <audio id="startSound" src="start.wav"></audio>
+    <audio id="eatSound" src="eat.mp3"></audio>
+    <audio id="gameOverSound" src="game-over.wav"></audio>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        // Your JavaScript code goes here
+        const gameBoard = document.getElementById('game-board');
+        const snakeSegments = [];
+        let food = { x: 0, y: 0 };
+        let direction = 'right';
+        let gameStarted = false;
+        let gameOver = false;
+        let score = 0;
+
+        const startSound = document.getElementById('startSound');
+        const eatSound = document.getElementById('eatSound');
+        const gameOverSound = document.getElementById('gameOverSound');
+        const scoreElement = document.getElementById('score');
+
+        function createSegment(x, y) {
+            const segment = document.createElement('div');
+            segment.classList.add('snake-segment');
+            segment.style.left = x + 'px';
+            segment.style.top = y + 'px';
+            gameBoard.appendChild(segment);
+            return segment;
+        }
+
+        function createFood() {
+            food.x = Math.floor(Math.random() * 46) * 30; // Adjust based on the new width
+            food.y = Math.floor(Math.random() * 30) * 30; // Adjust based on the new height
+            const foodElement = document.createElement('div');
+            foodElement.classList.add('food');
+            foodElement.style.left = food.x + 'px';
+            foodElement.style.top = food.y + 'px';
+            gameBoard.appendChild(foodElement);
+        }
+
+        function removeFood() {
+            const foodElement = document.querySelector('.food');
+            if (foodElement) {
+                gameBoard.removeChild(foodElement);
+            }
+        }
+
+        function moveSnake() {
+            if (!gameStarted || gameOver) return;
+
+            let headX = parseInt(snakeSegments[0].style.left);
+            let headY = parseInt(snakeSegments[0].style.top);
+
+            if (direction === 'right') {
+                headX += 30;
+            } else if (direction === 'left') {
+                headX -= 30;
+            } else if (direction === 'up') {
+                headY -= 30;
+            } else if (direction === 'down') {
+                headY += 30;
+            }
+
+            // Check for boundary collision
+            if (
+                headX < 0 ||
+                headX >= 1400 || // Adjust based on the new width
+                headY < 0 ||
+                headY >= 900 // Adjust based on the new height
+            ) {
+                // Game over
+                gameOver = true;
+                gameOverSound.play();
+                document.getElementById('restart-button').style.display = 'block';
+                return;
+            }
+
+            // Check for self-collision
+            for (let i = 1; i < snakeSegments.length; i++) {
+                const segment = snakeSegments[i];
+                if (parseInt(segment.style.left) === headX && parseInt(segment.style.top) === headY) {
+                    // Snake collided with itself
+                    gameOver = true;
+                    gameOverSound.play();
+                    document.getElementById('restart-button').style.display = 'block';
+                    return;
+                }
+            }
+
+            const newHead = createSegment(headX, headY);
+            snakeSegments.unshift(newHead);
+
+            if (headX === food.x && headY === food.y) {
+                // Snake ate the food
+                eatSound.play();
+                removeFood();
+                createFood();
+                score += 10;
+                scoreElement.textContent = 'Score: ' + score;
+            } else {
+                // Remove the last segment
+                const removedSegment = snakeSegments.pop();
+                gameBoard.removeChild(removedSegment);
+            }
+        }
+
+        function changeDirection(event) {
+            if (!gameStarted || gameOver) return;
+
+            if (event.key === 'ArrowUp' && direction !== 'down') {
+                direction = 'up';
+            } else if (event.key === 'ArrowDown' && direction !== 'up') {
+                direction = 'down';
+            } else if (event.key === 'ArrowLeft' && direction !== 'right') {
+                direction = 'left';
+            } else if (event.key === 'ArrowRight' && direction !== 'left') {
+                direction = 'right';
+            }
+        }
+
+        function startGame() {
+            gameStarted = true;
+            startSound.play();
+            document.getElementById('start-button').style.display = 'none';
+            createFood();
+            snakeSegments.push(createSegment(450, 450)); // Adjust based on the new width and height
+            snakeSegments.push(createSegment(420, 450)); // Adjust based on the new width and height
+            snakeSegments.push(createSegment(390, 450)); // Adjust based on the new width and height
+            document.addEventListener('keydown', changeDirection);
+            setInterval(moveSnake, 100); // Adjust snake speed here
+        }
+
+        function restartGame() {
+            window.location.reload();
+        }
+
+        document.getElementById('start-button').addEventListener('click', startGame);
+    </script>
+</body>
+</html>
