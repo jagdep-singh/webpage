@@ -17,6 +17,24 @@ body.dark-mode {
   text-align: center;
   background-color: rgb(44, 51, 51);
   transition: all 0.5s ease-in-out;
+  #game-button{
+    position: sticky;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: #002241;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive; /* 16-bit retro font */
+   
+}
+#game-button:hover{
+background-color: #34495f; /* Darker blue on hover */
+transform: translate(-50%, -50%) scale(1.05); /* Slightly scale up on hover */
+}
   #header {
     font-size: 100px;
     font-family: 'Metropolis';
@@ -200,7 +218,9 @@ body.dark-mode {
   .clear-button {
       transition: all 0.3s ease-in-out;
     }
-    
+    #game-button{
+      display: none;
+    }
 }
 
 
@@ -228,6 +248,9 @@ body.dark-mode {
   .main-button,
   .clear-button {
       transition: all 0.3s ease-in-out;
+  }
+  #game-button{
+    display: none;
   }
 }
 

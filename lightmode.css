@@ -8,6 +8,24 @@
   background-color: rgb(71, 85, 70);
   color: rgb(247, 255, 229);
 }
+#game-button{
+            position: sticky;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: #0074d9;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive; /* 16-bit retro font */
+           
+}
+#game-button:hover{
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translate(-50%, -50%) scale(1.05); /* Slightly scale up on hover */
+}
 button{
     cursor: pointer;
 }
@@ -240,6 +258,9 @@ responsiveness{
     .clear-button {
         transition: all 0.3s ease-in-out;
     }
+    #game-button{
+      display: none;
+    }
 }
 
 /* Medium screens (tablets) */
@@ -266,6 +287,9 @@ responsiveness{
     .main-button,
     .clear-button {
         transition: all 0.3s ease-in-out;
+    }
+    #game-button{
+      display: none;
     }
 }
 
