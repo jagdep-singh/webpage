@@ -1,32 +1,31 @@
+
 .checkbox {
 	display: none;
-}
-
-.switch-container {
+  }
+  
+  .switch-container {
 	position: absolute;
 	top: 10px;
-	right: 20px;
-}
-
-.switch {
+	right: 10px;
+  }
+  
+  .switch {
 	width: 60px;
 	height: 30px;
-	background: linear-gradient(to right,rgba(229,252,205,1), rgba(80,94,79,1) );
+	background: linear-gradient(to right, rgba(229, 252, 205, 1), rgba(80, 94, 79, 1));
 	border-radius: 25px;
 	display: inline-block;
 	position: relative;
 	overflow: hidden;
 	box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.2);
-	/* border: 1px solid #979797; */
-	transition: background 0.3s ease-in-out , border 0.3 ease-in-out;
-}
-
-.checkbox:checked + .switch {
+	transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
+  }
+  
+  .checkbox:checked + .switch {
 	background: linear-gradient(to right, #95f9c3, #0b3866);
-	/* border: 1px solid #292929; */
-}
-
-.switch::after {
+  }
+  
+  .switch::after {
 	content: "";
 	width: 28px;
 	height: 28px;
@@ -36,27 +35,48 @@
 	top: 1px;
 	left: 2px;
 	transition: left 0.3s cubic-bezier(0.65, 0.05, 0.36, 1), background-color 0.3s ease-in-out;
-}
-
-.checkbox:checked + .switch::after {
-	left: calc(100% - 30px);
+  }
+  
+  .checkbox:checked + .switch::after {
+	left: calc(100% - 30px + 17px); /* Adjusted for the circle's width and border */
 	background-color: #333;
-}
-@media (max-width: 480px) {
-    .switch-container {
-        top: 5px;
-        right: 5px;
-    }
-
-    .switch {
-        width: 40px;
-        height: 20px;
-    }
-
-    .switch::after {
-        width: 18px;
-        height: 18px;
-        top: 1px;
-        left: -3px;
-    }
-}
+  }
+  
+  /* Media query for tablet-sized screens */
+  @media screen and (max-width: 768px) {
+	.switch-container {
+	  top: 5px;
+	  right: 5px;
+	}
+  
+	.switch {
+	  width: 40px;
+	  height: 20px;
+	}
+  
+	.switch::after {
+	  width: 18px;
+	  height: 18px;
+	  left: 1px;
+	}
+  }
+  
+  /* Media query for phones */
+  @media screen and (max-width: 480px) {
+	.switch-container {
+	  top: 3px;
+	  right: 3px;
+	}
+  
+	.switch {
+	  width: 30px;
+	  height: 15px;
+	}
+  
+	.switch::after {
+	  width: 12px;
+	  height: 12px;
+	  left: 1px;
+	}
+  }
+  
