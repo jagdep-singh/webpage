@@ -37,7 +37,7 @@
   }
   
   .checkbox:checked + .switch::after {
-	left: calc(100% - 30px + 17px); /* Adjusted for the circle's width and border */
+	left: calc(100% - 46px + 17px); /* Adjusted for the circle's width and border */
 	background-color: #333;
   }
   
